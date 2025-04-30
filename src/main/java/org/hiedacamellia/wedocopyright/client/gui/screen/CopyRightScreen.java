@@ -48,7 +48,8 @@ public class CopyRightScreen extends Screen {
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         guiGraphics.fill(0, 0, width, height, 0xFF000000);
-        widgets.get(page).render(guiGraphics, mouseX, mouseY, partialTick);
+        if(page<widgets.size())
+            widgets.get(page).render(guiGraphics, mouseX, mouseY, partialTick);
         time += partialTick;
     }
 }
