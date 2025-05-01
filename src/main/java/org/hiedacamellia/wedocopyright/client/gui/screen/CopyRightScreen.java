@@ -8,6 +8,8 @@ import net.minecraftforge.common.MinecraftForge;
 import org.hiedacamellia.wedocopyright.WeDoCopyRight;
 import org.hiedacamellia.wedocopyright.api.event.AddCopyRightPageEvent;
 import org.hiedacamellia.wedocopyright.api.kubejs.CREventPoster;
+import org.hiedacamellia.wedocopyright.client.config.CRClientConfig;
+import org.hiedacamellia.wedocopyright.client.gui.widget.CopyRightModsWidget;
 import org.hiedacamellia.wedocopyright.client.gui.widget.CopyRightWidget;
 
 import java.util.ArrayList;
@@ -28,6 +30,10 @@ public class CopyRightScreen extends Screen {
         MinecraftForge.EVENT_BUS.post(event);
         if(WeDoCopyRight.kubeJsLoaded)
             CREventPoster.INSTANCE.post(event);
+
+        if (CRClientConfig.ShowModLogos.get()){
+            this.widgets.add(CopyRightModsWidget.create());
+        }
     }
 
     @Override
