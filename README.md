@@ -1,3 +1,3 @@
-mods: subscribe `AddCopyRightPageEvent` is all
+mods: subscribe `AddCopyRightPageEvent`
 
-kubejs: subscribe `add_copy_right_page` is all
+kubejs: `WeDoCopyRightEvents.addPage`
