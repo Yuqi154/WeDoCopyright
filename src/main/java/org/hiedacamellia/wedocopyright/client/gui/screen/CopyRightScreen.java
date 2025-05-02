@@ -56,6 +56,8 @@ public class CopyRightScreen extends Screen {
         guiGraphics.fill(0, 0, width, height, 0xFF000000);
         if(page<widgets.size())
             widgets.get(page).render(guiGraphics, mouseX, mouseY, partialTick);
+        else
+            keyPressed(0,0,0);
         time += partialTick;
     }
 }

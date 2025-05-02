@@ -15,7 +15,7 @@ public  class AddCopyRightPageEventJS extends EventJS {
     public AddCopyRightPageEventJS(AddCopyRightPageEvent event) {
         this.event = event;
     }
-    public void add(ResourceLocation location, int w, int h) {
+    public void addImage(ResourceLocation location, int w, int h) {
         event.add(location, w, h);
     }
     public void add(List<Component> components) {
