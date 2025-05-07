@@ -6,10 +6,12 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.hiedacamellia.wedocopyright.WeDoCopyRight;
 import org.hiedacamellia.wedocopyright.api.event.AddCopyRightPageEvent;
 import org.hiedacamellia.wedocopyright.api.kubejs.CREventPoster;
 import org.hiedacamellia.wedocopyright.client.config.CRClientConfig;
+import org.hiedacamellia.wedocopyright.client.gui.widget.CopyRightComponentWidget;
 import org.hiedacamellia.wedocopyright.client.gui.widget.CopyRightModsWidget;
 import org.hiedacamellia.wedocopyright.client.gui.widget.CopyRightWidget;
 
@@ -31,6 +33,10 @@ public class CopyRightScreen extends Screen {
         MinecraftForge.EVENT_BUS.post(event);
         if(WeDoCopyRight.kubeJsLoaded)
             CREventPoster.INSTANCE.post(event);
+
+        if(!FMLEnvironment.production){
+            this.widgets.add(CopyRightComponentWidget.create(Component.literal("WeDoCopyRight is not in production mode!")));
+        }
 
         if (CRClientConfig.ShowModLogos.get()){
             this.widgets.add(CopyRightModsWidget.create());
