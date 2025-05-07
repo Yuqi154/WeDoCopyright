@@ -1,8 +1,10 @@
 package org.hiedacamellia.wedocopyright.client.gui.widget;
 
 import com.mojang.blaze3d.platform.Window;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -25,8 +27,9 @@ public final class CopyRightImageWidget extends CopyRightWidget{
     }
 
     @Override
-    protected void renderWidget(GuiGraphics guiGraphics, int i, int i1, float v) {
-        guiGraphics.blit(location,
+    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+        RenderSystem.setShaderTexture(0, location);
+        GuiComponent.blit(poseStack,
                 0,
                 0,
                 Minecraft.getInstance().getWindow().getGuiScaledWidth(),

@@ -1,9 +1,10 @@
 package org.hiedacamellia.wedocopyright.client.gui.widget;
 
 import com.mojang.blaze3d.platform.Window;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.network.chat.Component;
 
 import java.util.List;
@@ -29,14 +30,14 @@ public final class CopyRightComponentWidget extends CopyRightWidget{
     }
 
     @Override
-    protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         int length = message.length;
         int h = length*font.lineHeight;
         int w = getWidth()/2;
         int startY = (getHeight() - h) / 2;
         for (int i = 0; i < message.length; i++) {
             int y = startY + i * font.lineHeight;
-            guiGraphics.drawCenteredString(font, message[i], getX() + w, y, 0xFFFFFF);
+            GuiComponent.drawCenteredString(poseStack, font, message[i], x + w, y, 0xFFFFFF);
         }
     }
 }

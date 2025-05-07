@@ -1,8 +1,9 @@
 package org.hiedacamellia.wedocopyright.client.gui.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.common.MinecraftForge;
@@ -58,9 +59,9 @@ public class CopyRightScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
-        guiGraphics.fill(0, 0, width, height, 0xFF000000);
+    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+        super.render(poseStack, mouseX, mouseY, partialTick);
+        GuiComponent.fill(poseStack, 0, 0, width, height, 0xFF000000);
 
         float alpha = 1.0f;
         if(CRClientConfig.FadeIn.get()) {
@@ -77,7 +78,7 @@ public class CopyRightScreen extends Screen {
         RenderSystem.setShaderColor(1.0f,1.0f,1.0f,alpha);
 
         if(page<widgets.size())
-            widgets.get(page).render(guiGraphics, mouseX, mouseY, partialTick);
+            widgets.get(page).render(poseStack, mouseX, mouseY, partialTick);
         else
             keyPressed(0,0,0);
 

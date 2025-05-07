@@ -2,22 +2,22 @@ package org.hiedacamellia.wedocopyright.client.gui.widget;
 
 import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.blaze3d.platform.Window;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.IoSupplier;
+import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.common.util.Size2i;
 import net.minecraftforge.fml.loading.FMLLoader;
-import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 import net.minecraftforge.resource.PathPackResources;
 import net.minecraftforge.resource.ResourcePackLoader;
 import org.apache.commons.lang3.tuple.Pair;
 import org.hiedacamellia.wedocopyright.WeDoCopyRight;
 import org.hiedacamellia.wedocopyright.client.config.CRClientConfig;
-import org.joml.Vector2i;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,6 +35,17 @@ public final class CopyRightModsWidget extends CopyRightWidget {
         this.logos.addAll(logos);
     }
 
+    public static class Vector2i {
+        public int x;
+        public int y;
+
+        public Vector2i(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+    }
+
     record Logo(ResourceLocation texture, Size2i size, Vector2i position) {
         public void offsetX(int x) {
             position.x += x;
@@ -44,8 +55,9 @@ public final class CopyRightModsWidget extends CopyRightWidget {
             position.y += y;
         }
 
-        public void draw(GuiGraphics guiGraphics){
-            guiGraphics.blit(texture, position.x, position.y, MAX_HEIGHT *size.width/size.height,MAX_HEIGHT,0,0, size.width, size.height,size.width, size.height);
+        public void draw(PoseStack poseStack){
+            RenderSystem.setShaderTexture(0, texture);
+            GuiComponent.blit(poseStack, position.x, position.y, MAX_HEIGHT *size.width/size.height,MAX_HEIGHT,0,0, size.width, size.height,size.width, size.height);
         }
     }
 
@@ -66,9 +78,9 @@ public final class CopyRightModsWidget extends CopyRightWidget {
                                         orElseThrow(() -> new RuntimeException("Can't find forge, WHAT!")));
                         try {
                             NativeImage logo = null;
-                            IoSupplier<InputStream> logoResource = resourcePack.getRootResource(logoFile);
+                            InputStream logoResource = resourcePack.getRootResource(logoFile);
                             if (logoResource != null)
-                                logo = NativeImage.read(logoResource.get());
+                                logo = NativeImage.read(logoResource);
                             if (logo != null) {
                                 return Pair.of(tm.register("modlogo", new DynamicTexture(logo) {
                                     @Override
@@ -141,7 +153,7 @@ public final class CopyRightModsWidget extends CopyRightWidget {
     }
 
     @Override
-    protected void renderWidget(GuiGraphics guiGraphics, int i, int i1, float v) {
-        logos.forEach(logo -> logo.draw(guiGraphics));
+    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+        logos.forEach(logo -> logo.draw(poseStack));
     }
 }
