@@ -9,9 +9,10 @@ kubejs: `WeDoCopyRightEvents.addPage`
 - NeoForge-1.21.1
 - Forge-1.20.1
 - Forge-1.19.2
+- Fabric-1.20.1
 
 ## Will Support Versions
 
-- Fabric-1.20.1
+- none
 
 Other versions please open an issue to request.
