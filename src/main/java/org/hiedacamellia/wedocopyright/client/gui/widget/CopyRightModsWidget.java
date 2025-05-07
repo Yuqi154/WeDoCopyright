@@ -16,6 +16,7 @@ import net.minecraftforge.resource.PathPackResources;
 import net.minecraftforge.resource.ResourcePackLoader;
 import org.apache.commons.lang3.tuple.Pair;
 import org.hiedacamellia.wedocopyright.WeDoCopyRight;
+import org.hiedacamellia.wedocopyright.client.config.CRClientConfig;
 import org.joml.Vector2i;
 
 import java.io.IOException;
@@ -56,6 +57,9 @@ public final class CopyRightModsWidget extends CopyRightWidget {
         FMLLoader.getLoadingModList().getMods().forEach(modInfo -> {
                     Pair<ResourceLocation, Size2i> pair = modInfo.getLogoFile().map(logoFile ->
                     {
+                        if(modInfo.getModId().contains("fabric")&& CRClientConfig.IgnoreFabricApi.get()) {
+                            return Pair.<ResourceLocation, Size2i>of(null, new Size2i(0, 0));
+                        }
                         TextureManager tm = Minecraft.getInstance().getTextureManager();
                         final PathPackResources resourcePack = ResourcePackLoader.getPackFor(modInfo.getModId())
                                 .orElse(ResourcePackLoader.getPackFor("forge").
@@ -103,9 +107,7 @@ public final class CopyRightModsWidget extends CopyRightWidget {
             ResourceLocation left = logos.get(i).getLeft();
             Size2i size = logos.get(i).getRight();
             int logowidth = MAX_HEIGHT*size.width/size.height ;
-            WeDoCopyRight.LOGGER.error("Logo: "+left+" "+size.width+" "+size.height);
             if(logowidth+w<=guiScaledWidth){
-                WeDoCopyRight.LOGGER.error("width: "+w+" height: "+h+" logowidth: "+logowidth);
                 line.add(new Logo(left, size, new Vector2i(w, h)));
                 w+=logowidth;
             }else{
@@ -115,7 +117,6 @@ public final class CopyRightModsWidget extends CopyRightWidget {
                 line.clear();
                 w=0;
                 h+=MAX_HEIGHT;
-                WeDoCopyRight.LOGGER.error("width: "+w+" height: "+h+" logowidth: "+logowidth);
                 line.add(new Logo(left, size, new Vector2i(w, h)));
                 w+=logowidth;
             }
