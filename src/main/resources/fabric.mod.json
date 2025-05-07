@@ -2,25 +2,25 @@
   "schemaVersion": 1,
   "id": "wedocopyright",
   "version": "${version}",
-
   "name": "We Do Copyright ",
   "description": "",
   "authors": [],
-  "contact": {},
-
+  "contact": {
+    "repo": "https://github.com/Yuqi154/WeDoCopyright"
+  },
   "license": "All-Rights-Reserved",
-  "icon": "assets/wedocopyright/icon.png",
-
   "environment": "client",
-  "entrypoints": {},
-
-      "mixins": [
-        "wedocopyright.mixins.json"
-      ],
-
+  "entrypoints": {
+    "client": [
+      "org.hiedacamellia.wedocopyright.WeDoCopyRight"
+    ]
+  },
+  "mixins": [
+    "wedocopyright.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=${loader_version}",
-        "fabric": "*",
+    "fabric": "*",
     "minecraft": "${minecraft_version}"
   }
 }
