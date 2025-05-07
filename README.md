@@ -6,8 +6,9 @@ kubejs: `WeDoCopyRightEvents.addPage`
 
 ## Supported Versions
 
-- Forge-1.20.1
 - NeoForge-1.21.1
+- Forge-1.20.1
+- Forge-1.19.2
 
 ## Will Support Versions
 
