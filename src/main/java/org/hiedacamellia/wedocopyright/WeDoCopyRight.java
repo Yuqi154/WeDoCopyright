@@ -35,7 +35,7 @@ public class WeDoCopyRight {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         if(FMLEnvironment.dist.isClient()){
-            ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CRClientConfig.SPEC);
+            ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CRClientConfig.SPEC);
         }
     }
 
